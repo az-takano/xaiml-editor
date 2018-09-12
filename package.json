@@ -1,0 +1,57 @@
+{
+  "name": "xaiml-editor",
+  "version": "0.0.0",
+  "description": "AIML language support in Atom.",
+  "main": "./lib/main",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/docomo-dialog/xaiml-editor.git"
+  },
+  "engines": {
+    "atom": ">=1.13.0 <2.0.0"
+  },
+  "keywords": [
+    "AIML"
+  ],
+  "dependencies": {
+    "request-promise": "^3.0.0",
+    "fs-plus": "^3.0.1",
+    "atom-linter": "^10.0.0",
+    "atom-package-deps": "^4.6.0",
+    "xregexp": "^3.2.0",
+    "season": "^6.0.0"
+  },
+  "devDependencies": {
+    "coffeelint": "^1.13.1",
+    "request": "^2.53.0"
+  },
+  "package-deps": [
+    "linter:2.2.0"
+  ],
+  "providedServices": {
+    "autocomplete.provider": {
+      "description": "Added provider for AIML document to autocomplete-plus.",
+      "versions": {
+        "2.0.0": "provideAutocomplete"
+      }
+    },
+    "linter": {
+      "versions": {
+        "2.0.0": "provideLinterV2"
+      }
+    }
+  },
+  "consumedServices": {
+    "status-bar": {
+      "versions": {
+        "^1.0.0": "consumeStatusBar"
+      }
+    },
+    "highlightSelected": {
+      "versions": {
+        "2.0.0": "consumeHighlightSelectedV2"
+      }
+    }
+  }
+}

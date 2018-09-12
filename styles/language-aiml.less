@@ -1,0 +1,42 @@
+// The ui-variables file is provided by base themes provided by Atom.
+//
+// See https://github.com/atom/atom-dark-ui/blob/master/styles/ui-variables.less
+// for a full listing of what's available.
+@import "ui-variables";
+
+.xaiml-editor {
+}
+
+.aiml-version-statusbar {
+  color: rgb(255, 130, 0)
+}
+
+// :host, atom-text-editor, atom-text-editor::shadow {
+atom-text-editor .highlights {
+  // atom-text-editor .highlight.replace-values .region {
+  .highlight.replace-values .region {
+    position: absolute;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  // .highlights {
+  .replace-values .region {
+    border-radius: 1px;
+    box-sizing: border-box;
+    background-color: transparent;
+    border-width: 1px;
+    border-style: solid;
+    z-index: 1;
+  }
+
+  // Edit Target
+  .replace-values .region {
+    border-color: rgb(255, 0, 0);
+  }
+  // Replace Target
+  .replace-values.target .region {
+    border-color: rgb(255, 130, 0);
+  }
+  // }
+}

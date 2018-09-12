@@ -1,0 +1,17 @@
+# Keybindings require three things to be fully defined: A selector that is
+# matched against the focused element, the keystroke and the command to
+# execute.
+#
+# Below is a basic keybinding which registers on all platforms by applying to
+# the root workspace element.
+
+# For more detailed documentation see
+# https://atom.io/docs/latest/behind-atom-keymaps-in-depth
+# 'atom-workspace':
+#   'ctrl-alt-a': 'xaiml-editor:toggle'
+'atom-text-editor:not([mini])':
+# 'atom-text-editor[data-grammar="text aiml"]:not([mini])':
+  'alt-/':      'xaiml-editor:toggleComment'
+  'alt-r':      'xaiml-editor:toggleReplaceValues'
+  'alt-l':      'xaiml-editor:executeLinter'
+# 'ctrl-alt-a': 'xaiml-editor:collectPredicateName'

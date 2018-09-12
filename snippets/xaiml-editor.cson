@@ -1,0 +1,37 @@
+'.text.aiml':
+  # 'XML Processing Instruction':
+  #   'prefix': 'xml'
+  #   # 'body': '<?xml version="1.0" encoding="UTF-8"?>'
+  #   'body': '''
+  #           <?xml version="1.0" encoding="UTF-8"?>
+  #           <aiml xmlns="http://alicebot.org/2001/AIML-1.0.1" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0.1" xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
+  #             <topic name="$1">$0
+  #             </topic>
+  #           </aiml>
+  #           '''
+  # 'AIML':
+  #   'prefix': '<aiml'
+  #   'body': '''
+  #           <aiml xmlns="http://alicebot.org/2001/AIML-1.0.1" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0.1" xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
+  #             <topic name="$1">$0
+  #             </topic>
+  #           </aiml>
+  #           '''
+  # 'get tag':
+  #   'prefix': '<get'
+  #   'body': '<get name="$1"/>$0'
+  # 'CDATA':
+  #   'prefix': 'cdata'
+  #   'body': '<![CDATA[$0]]>'
+  # 'Long Attribute Tag':
+  #   'prefix': '<a'
+  #   'body': '<${1:name} ${2:attr}="${3:value}">$4\n</${1:name}>'
+  # 'Long Tag':
+  #   'prefix': '<'
+  #   'body': '<${1:name}>$2</${1:name}>'
+  # 'Short Tag':
+  #   'prefix': '>'
+  #   'body': '<${1:name} />'
+  'Comment':
+    'prefix': '--'
+    'body': '<!-- $1 -->$0'

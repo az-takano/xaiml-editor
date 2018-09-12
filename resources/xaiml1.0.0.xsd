@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.nttdocomo.com/aiml/schema"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	targetNamespace="http://www.nttdocomo.com/aiml/schema" elementFormDefault="qualified"
+	attributeFormDefault="unqualified" version="xaiml1.0.0">
+
+	<xs:simpleType name="versions">
+		<xs:restriction base="xs:string"></xs:restriction>
+	</xs:simpleType>
+
+	<xs:element name="aiml">
+		<xs:complexType>
+			<xs:choice minOccurs="1" maxOccurs="unbounded">
+				<xs:element name="topic">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="category" type="CategoryElement"/>
+						</xs:sequence>
+						<xs:attribute name="name" type="TopicType" use="required"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="category" type="CategoryElement"/>
+			</xs:choice>
+			<xs:attribute name="version" use="required" type="versions"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="CategoryElement">
+		<xs:sequence>
+			<xs:element name="pattern" type="PatternElement" maxOccurs="unbounded" />
+			<xs:element name="that" type="ThatElement" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="template" type="TemplateElement"/>
+		</xs:sequence>
+		<xs:attribute name="recursion" type="xs:boolean"/>
+	</xs:complexType>
+
+	<xs:complexType name="PatternElement" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="patternElements"/>
+		</xs:choice>
+		<xs:attributeGroup ref="patternAttributes"/>
+	</xs:complexType>
+
+	<xs:complexType name="ThatElement" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="patternElements"/>
+		</xs:choice>
+		<xs:attributeGroup ref="thatAttributes"/>
+	</xs:complexType>
+
+	<xs:complexType name="TemplateElement" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="templateElements"/>
+		</xs:choice>
+		<xs:attributeGroup ref="templateAttributes"/>
+	</xs:complexType>
+
+	<xs:complexType name="TemplateElementExcludeAttr" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="templateElements"/>
+		</xs:choice>
+	</xs:complexType>
+
+	<xs:group name="patternElements">
+		<xs:choice>
+			<xs:element name="bot" type="BotElement"/>
+			<xs:element name="get" type="PatternSideGetElement"/>
+			<xs:element name="set" type="KeyType"/>
+			<xs:element name="map" type="KeyType"/>
+		</xs:choice>
+	</xs:group>
+
+	<xs:group name="templateElements">
+		<xs:choice>
+			<xs:group ref="atomicElements"/>
+			<xs:group ref="textFormattingElements"/>
+			<xs:group ref="conditionalElements"/>
+			<xs:group ref="captureElements"/>
+			<xs:group ref="symbolicReductionElements"/>
+			<xs:group ref="transformationalElements"/>
+			<xs:group ref="covertElements"/>
+			<xs:group ref="externalProcessorElements"/>
+			<xs:group ref="utteranceElements"/>
+			<xs:any namespace="##other" processContents="lax"/>
+		</xs:choice>
+	</xs:group>
+
+	<xs:group name="atomicElements">
+		<xs:choice>
+			<xs:group ref="retrieveElements"/>
+			<xs:element name="that" type="Empty"/>
+			<xs:element name="thatstar" type="IndexedElement"/>
+			<xs:element name="topicstar" type="IndexedElement"/>
+			<xs:element name="br" type="Empty"/>
+			<xs:group ref="systemDefinedPredicates"/>
+			<xs:element name="predstore" type="PredStoreElement"/>
+		</xs:choice>
+	</xs:group>
+
+	<xs:group name="retrieveElements">
+		<xs:choice>
+			<xs:element name="star" type="IndexedElement"/>
+			<xs:element name="sr" type="SrElement"/>
+			<xs:element name="get" type="GetElement"/>
+			<xs:element name="bot" type="BotElement"/>
+			<xs:element name="matcher" type="MatcherElement"/>
+		</xs:choice>
+	</xs:group>
+
+	<xs:group name="systemDefinedPredicates">
+		<xs:choice>
+			<xs:element name="date" type="DateType"/>
+			<xs:element name="date_add" type="DateAddType"/>
+			<xs:element name="date_span" type="DateSpanType"/>
+			<xs:element name="calc" type="CalcType"/>
+		</xs:choice>
+	</xs:group>
+
+	<xs:group name="textFormattingElements">
+		<xs:choice>
+			<xs:element name="uppercase" type="TemplateElementExcludeAttr"/>
+			<xs:element name="lowercase" type="TemplateElementExcludeAttr"/>
+			<xs:element name="formal" type="TemplateElementExcludeAttr"/>
+			<xs:element name="sentence" type="TemplateElementExcludeAttr"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="conditionalElements">
+		<xs:choice>
+			<xs:element name="condition" type="ConditionalElement"/>
+			<xs:element name="conditional_random" type="ConditionalElement"/>
+			<xs:element name="random">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="li" type="TemplateElement" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="captureElements">
+		<xs:choice>
+			<xs:element name="set" type="SetElement"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="symbolicReductionElements">
+		<xs:choice>
+			<xs:element name="srai" type="TemplateElementExcludeAttr"/>
+			<xs:element name="sraix" type="SraixElement"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="transformationalElements">
+		<xs:choice>
+			<xs:element name="map" type="MapElement"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="covertElements">
+		<xs:choice>
+			<xs:element name="think" type="TemplateElementExcludeAttr"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="externalProcessorElements">
+		<xs:choice>
+			<xs:element name="command" type="CommandElement"/>
+			<xs:element name="ext" type="ExtElement"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="utteranceElements">
+		<xs:choice>
+			<xs:element name="utterance">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="1">
+						<xs:element name="ub" type="UtteranceType"/>
+						<xs:element name="ut" type="UtteranceType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:group>
+
+	<xs:complexType name="PatternSideGetElement">
+		<xs:choice minOccurs="0" maxOccurs="1">
+			<xs:element name="name" type="KeyType"/>
+		</xs:choice>
+		<xs:attribute name="name" type="KeyType"/>
+	</xs:complexType>
+
+	<xs:complexType name="GetElement">
+		<xs:choice minOccurs="0" maxOccurs="1">
+			<xs:element name="name" type="TemplateElementExcludeAttr"/>
+		</xs:choice>
+		<xs:attribute name="name" type="KeyType"/>
+	</xs:complexType>
+
+	<xs:complexType name="SetElement" mixed="true">
+		<xs:sequence>
+			<xs:element name="name" type="TemplateElementExcludeAttr" minOccurs="0" maxOccurs="1"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="templateElements"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="name" type="KeyType"/>
+	</xs:complexType>
+
+	<xs:complexType name="BotElement">
+		<xs:attribute name="name" type="KeyType" use="required"/>
+	</xs:complexType>
+
+	<xs:complexType name="IndexedElement">
+		<xs:attribute name="index" type="xs:integer"/>
+	</xs:complexType>
+
+	<xs:complexType name="SrElement">
+		<xs:attribute name="index" type="xs:integer"/>
+	</xs:complexType>
+
+	<xs:complexType name="ConditionalElement">
+		<xs:sequence>
+			<xs:element name="name" type="TemplateElementExcludeAttr" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="li" type="ConditionalLiElement" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="KeyType"/>
+	</xs:complexType>
+
+	<xs:complexType name="ConditionalLiElement" mixed="true">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="2">
+				<xs:element name="name" type="TemplateElementExcludeAttr" maxOccurs="1"/>
+				<xs:element name="value" type="TemplateElementExcludeAttr" maxOccurs="1"/>
+			</xs:choice>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="templateElements"/>
+			</xs:choice>
+			<xs:element name="loop" type="Empty" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="templateAttributes"/>
+		<xs:attribute name="name" type="KeyType"/>
+		<xs:attribute name="value" type="xs:string"/>
+		<xs:attribute name="predicate" type="xs:string"/>
+		<xs:attribute name="regex" type="xs:string"/>
+	</xs:complexType>
+
+	<xs:complexType name="ExtElement">
+		<xs:sequence>
+			<xs:element name="arg" type="ArgElement" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="KeyType" use="required"/>
+		<xs:attribute name="anonymous" type="xs:boolean"/>
+	</xs:complexType>
+
+	<xs:complexType name="ArgElement" mixed="true">
+		<xs:sequence minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="templateElements"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="KeyType" use="required"/>
+	</xs:complexType>
+
+	<xs:complexType name="CommandElement" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="templateElements"/>
+		</xs:choice>
+	</xs:complexType>
+
+	<xs:complexType name="MapElement" mixed="true">
+		<xs:sequence>
+			<xs:element name="name" type="TemplateElementExcludeAttr" minOccurs="0" maxOccurs="1"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="templateElements"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="name" type="KeyType"/>
+	</xs:complexType>
+
+	<xs:complexType name="SraixElement" mixed="true">
+		<xs:sequence>
+			<xs:element name="botid" type="TemplateElementExcludeAttr" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="sraixtopic" type="TemplateElementExcludeAttr" minOccurs="0" maxOccurs="1"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="templateElements"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="botid" type="KeyType"/>
+		<xs:attribute name="lang" type="xs:string"/>
+		<xs:attribute name="clientdata" type="xs:boolean"/>
+		<xs:attribute name="default" type="xs:string"/>
+	</xs:complexType>
+
+	<xs:complexType name="MatcherElement">
+		<xs:attribute name="group" type="xs:integer" use="required"/>
+		<xs:attribute name="find" type="xs:integer"/>
+	</xs:complexType>
+
+	<xs:complexType name="PredStoreElement" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="retrieveElements"/>
+		</xs:choice>
+	</xs:complexType>
+
+	<xs:attributeGroup name="patternAttributes">
+		<xs:attribute name="partial" type="xs:boolean"/>
+		<xs:attribute name="surface" type="xs:boolean"/>
+		<xs:attribute name="level" type="NormalizeType"/>
+		<xs:attribute name="label" type="xs:string"/>
+	</xs:attributeGroup>
+
+	<xs:attributeGroup name="thatAttributes">
+		<xs:attribute name="partial" type="xs:boolean"/>
+		<xs:attribute name="id" type="xs:string"/>
+	</xs:attributeGroup>
+
+	<xs:attributeGroup name="templateAttributes">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="timeout" type="xs:integer"/>
+		<xs:attribute name="max_output" type="xs:integer"/>
+		<xs:attribute name="suppression_period" type="xs:integer"/>
+		<xs:attribute name="talkend" type="xs:boolean"/>
+	</xs:attributeGroup>
+
+	<xs:simpleType name="KeyType">
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="100"/>
+				<xs:pattern value="(\c|\[[0-9]+\])+"/>
+			</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="TopicType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="100"/>
+			<xs:pattern value="(([a-zA-Z0-9]|-|\|)+|\*|_)(\s+(([a-zA-Z0-9]|-)+|\*|_))*"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="NormalizeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="exact"/>
+			<xs:enumeration value="surface"/>
+			<xs:enumeration value="normalization"/>
+			<xs:enumeration value="synonym"/>
+			<xs:enumeration value="hypernym"/>
+			<xs:enumeration value="regex"/>
+			<xs:enumeration value="manual"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="CalcType" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="templateElements"/>
+		</xs:choice>
+		<xs:attribute name="operator" type="OperatorType"/>
+		<xs:attribute name="name" type="KeyType" use="required"/>
+	</xs:complexType>
+
+	<xs:complexType name="DateType" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="templateElements"/>
+		</xs:choice>
+		<xs:attribute name="format" type="xs:string"/>
+		<xs:attribute name="parse_format" type="xs:string"/>
+	</xs:complexType>
+
+	<xs:complexType name="DateAddType" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="templateElements"/>
+		</xs:choice>
+		<xs:attribute name="field" type="DateFieldType" use="required"/>
+		<xs:attribute name="value" type="xs:integer"/>
+		<xs:attribute name="predicate" type="KeyType"/>
+		<xs:attribute name="format" type="xs:string"/>
+	</xs:complexType>
+
+	<xs:complexType name="DateSpanType" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="templateElements"/>
+		</xs:choice>
+		<xs:attribute name="field" type="DateFieldType" use="required"/>
+		<xs:attribute name="value" type="xs:string"/>
+		<xs:attribute name="predicate" type="KeyType"/>
+		<xs:attribute name="value_format" type="xs:string"/>
+	</xs:complexType>
+
+	<xs:simpleType name="OperatorType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[\+\-\*/%]"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="UtteranceType" mixed="true">
+		<xs:sequence>
+			<xs:element name="get" minOccurs="0" maxOccurs="unbounded" type="GetElement"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="DateFieldType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="year"/>
+			<xs:enumeration value="month"/>
+			<xs:enumeration value="date"/>
+			<xs:enumeration value="hour"/>
+			<xs:enumeration value="minute"/>
+			<xs:enumeration value="second"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Empty"/>
+
+</xs:schema>
