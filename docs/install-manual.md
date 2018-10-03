@@ -44,42 +44,7 @@
 
 <a name="package"/>
 
-## 2. xaiml-editor インストール
-
-[Atom]に本パッケージ xaiml-editor をインストールします。
-
-1. [Atom]が起動している場合は終了します。
-
-1. ファイル xaiml-editor_x.x.x.zip を任意のフォルダに展開します。(例: *C:\tools* )<br>
-展開時に作成されたフォルダが本パッケージの実体となります。(例: *C:\tools\xaiml-editor_x.x.x* )<br>
-**※ インストールが完了しても削除しないでください。**
-
-1. 既に本パッケージをインストールされている場合、パッケージフォルダにあるバッチファイル uninstall.bat を実行します。  
- (OSが MacOS 及び Linux の場合は uninstall.sh を実行します。)
-
- 例: *C:\tools\xaiml-editor_x.x.x\uninstall.bat*
-
- ![install_1](images/uninstall.bat.png)
-
-1. パッケージフォルダにあるバッチファイル install.bat を実行します。  
- (OSが MacOS 及び Linux の場合は install.sh を実行します。)
-
- 例: *C:\tools\xaiml-editor_x.x.x\install.bat*
-
- ![install_1](images/install.bat.png)
-
-1. [Atom]を起動します。
-
-   起動時に本パッケージとコミュニティーパッケージ [linter] とその関連パッケージのインストールが行われます。
-
-<br>
-
-[[先頭へ戻る](#top)]
-
-<!--
-<a name="package"/>
-
-## 2. xaiml-editor インストール
+## 2. [xaiml-editor] インストール
 
 [Atom]に本パッケージ xaiml-editor をインストールします。
 
@@ -102,7 +67,7 @@
 <br>
 
 [[先頭へ戻る](#top)]
--->
+
 ---
 
 <a name="xmllint"/>
@@ -209,6 +174,6 @@ xaiml-editor が構文チェック機能で使用する実行モジュールを�
 [ftp://ftp.zlatkovic.com/libxml/]: ftp://ftp.zlatkovic.com/libxml/
 [xmllint]: http://xmlsoft.org/xmllint.html
 [https://brew.sh/index_ja]: [https://brew.sh/index_ja]
-
+[xaiml-editor]: https://github.com/docomo-dialog/xaiml-editor
 <!-- package -->
 [linter]: https://atom.io/packages/linter
