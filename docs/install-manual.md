@@ -82,29 +82,26 @@ xaiml-editor が構文チェック機能で使用する実行モジュールを�
 適正バージョンの xmllint がインストール済みです。  
   ![xmllint-version](images/xmllint-version.png)  
   ※version 20708 動作確認済み  
-  <br>
-  <br>
 
 1. 出力結果に `libxml version ...` が含まれていない、もしくは libxml のバージョンが 20708 未満だった場合は、  
 下記の手順を参考に xmllint のインストールを行います。
 
 
 + Windows
-
   1. [http://xmlsoft.org/sources/win32/] または [ftp://ftp.zlatkovic.com/libxml/] から以下のファイルをダウンロードし展開します。  
-    + libxml2-2.7.8.win32.zip
-    + iconv-1.9.2.win32.zip
-    + zlib-1.2.5.win32.zip
-
+      + libxml2-2.7.8.win32.zip
+      + iconv-1.9.2.win32.zip
+      + zlib-1.2.5.win32.zip
+      <br>
   1. 展開したファイルの中から以下のファイルを任意のフォルダ(例:*C:\\tools\\libxml*)に配置し、
 配置したフォルダのパスを環境変数 *PATH* に設定します。  
-    + xmllint.exe
-    + libxml2.dll
-    + iconv.dll
-    + zlib1.dll
-
+      + xmllint.exe
+      + libxml2.dll
+      + iconv.dll
+      + zlib1.dll
+      <br>
   1. コマンドプロンプトで `xmllint --version` と入力し、出力結果に `libxml version ...` が含まれていることを確認します。  
-    ![xmllint-version](images/xmllint-version.png)
+      ![xmllint-version](images/xmllint-version.png)
     <br>
 
 + MacOS
