@@ -50,15 +50,13 @@
 
 1. [Atom]を起動します
 
-1. メニューから Preferences(環境設定) を選択し、設定画面を開きます。
-
-  ![install_1](images/install_1.png)
+1. メニューから Preferences(環境設定) を選択し、設定画面を開きます。  
+![install_1](images/install_1.png)
 
 1. 画面左のメニューからInstall を選択し、 検索欄に xaiml-editor と入力して検索を行います。
 
-1. 検索結果一覧の中から xaiml-editor を選択し、インストールを行います。
-
-  ![install_2](images/install_2.png)
+1. 検索結果一覧の中から xaiml-editor を選択し、インストールを行います。  
+![install_2](images/install_2.png)
 
 1. インストール完了後、[Atom]を再起動します。
 
@@ -81,36 +79,29 @@ xaiml-editor が構文チェック機能で使用する実行モジュールを�
 1. コンソール画面で `xmllint --version` と入力し、実行します。
 
 1. 出力結果に `libxml version ...` が含まれており、バージョンが 20708 以上の場合は、  
-適正バージョンの xmllint がインストール済みです。
-
-  ![xmllint-version](images/xmllint-version.png)
-  ※version 20708 動作確認済み
-  <br>
-  <br>
+適正バージョンの xmllint がインストール済みです。  
+  ![xmllint-version](images/xmllint-version.png)  
+  ※version 20708 動作確認済み  
 
 1. 出力結果に `libxml version ...` が含まれていない、もしくは libxml のバージョンが 20708 未満だった場合は、  
 下記の手順を参考に xmllint のインストールを行います。
 
 
 + Windows
-
-  1. [http://xmlsoft.org/sources/win32/] または [ftp://ftp.zlatkovic.com/libxml/] から以下のファイルをダウンロードし展開します。
-
-    + libxml2-2.7.8.win32.zip
-    + iconv-1.9.2.win32.zip
-    + zlib-1.2.5.win32.zip
-
+  1. [http://xmlsoft.org/sources/win32/] または [ftp://ftp.zlatkovic.com/libxml/] から以下のファイルをダウンロードし展開します。  
+      + libxml2-2.7.8.win32.zip
+      + iconv-1.9.2.win32.zip
+      + zlib-1.2.5.win32.zip
+      <br>
   1. 展開したファイルの中から以下のファイルを任意のフォルダ(例:*C:\\tools\\libxml*)に配置し、
-配置したフォルダのパスを環境変数 *PATH* に設定します。
-
-    + xmllint.exe
-    + libxml2.dll
-    + iconv.dll
-    + zlib1.dll
-
-  1. コマンドプロンプトで `xmllint --version` と入力し、出力結果に `libxml version ...` が含まれていることを確認します。
-
-    ![xmllint-version](images/xmllint-version.png)
+配置したフォルダのパスを環境変数 *PATH* に設定します。  
+      + xmllint.exe
+      + libxml2.dll
+      + iconv.dll
+      + zlib1.dll
+      <br>
+  1. コマンドプロンプトで `xmllint --version` と入力し、出力結果に `libxml version ...` が含まれていることを確認します。  
+      ![xmllint-version](images/xmllint-version.png)
     <br>
 
 + MacOS
@@ -119,8 +110,7 @@ xaiml-editor が構文チェック機能で使用する実行モジュールを�
 
   1. ターミナルで`brew install libxml2`と入力し、`libxml2`をインストールします。
 
-  1. ターミナルで`xmllint --version`と入力し、出力結果に`libxml version ...`が含まれていることを確認します。
-
+  1. ターミナルで`xmllint --version`と入力し、出力結果に`libxml version ...`が含まれていることを確認します。  
     ![xmllint-mac-1](images/xmllint-mac-1.png)
     <br>
 
@@ -128,30 +118,26 @@ xaiml-editor が構文チェック機能で使用する実行モジュールを�
 
   1. コンソールで`apt-get install libxml2-utils`と入力し、`libxml2-utils`をインストールします。
 
-  2. コンソールで`xmllint --version`と入力し、出力結果に`libxml version ...`が含まれていることを確認します。
-
+  2. コンソールで`xmllint --version`と入力し、出力結果に`libxml version ...`が含まれていることを確認します。  
     ![xmllint-linux-1](images/xmllint-linux-1.png)
     <br>
 
 + 補足: 環境変数 *PATH* が使用できない場合
 
-    環境変数 *PATH* がサイズオーバーなどにより使用できない場合、xaiml-editor の設定画面で xmllint.exe のパスを指定します。
+  環境変数 *PATH* がサイズオーバーなどにより使用できない場合、xaiml-editor の設定画面で xmllint.exe のパスを指定します。
 
-    以下、設定手順です。
+  以下、設定手順です。
 
-    1. 設定画面(`[File > Settings]`/`<Ctrl-,>`)の Packages ページを表示します。
+  1. 設定画面(`[File > Settings]`/`<Ctrl-,>`)の Packages ページを表示します。
 
-    1. Community Packages リストにある xaiml-editor の Settings ボタンを押下します。
+  1. Community Packages リストにある xaiml-editor の Settings ボタンを押下します。  
+    ![settings-packages](images/settings-packages-80.png)  
+    ※ オレンジ枠部分
 
-      ![settings-packages](images/settings-packages-80.png)
-      ※ オレンジ枠部分
-
-    1. Settings の Xmllint Executable Path に *xmllint.exe* のパスを入力します。
-
-      例: *C:\\tools\\libxml\\xmllint.exe*
-
-      ![settings-xmllint](images/settings-xmllint-80.png)
-      ※ 青枠部分
+  1. Settings の Xmllint Executable Path に *xmllint.exe* のパスを入力します。  
+    例: *C:\\tools\\libxml\\xmllint.exe*  
+    ![settings-xmllint](images/settings-xmllint-80.png)  
+    ※ 青枠部分
 
 <br>
 
