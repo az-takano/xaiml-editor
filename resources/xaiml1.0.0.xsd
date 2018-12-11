@@ -189,6 +189,7 @@
 			<xs:element name="name" type="TemplateElementExcludeAttr"/>
 		</xs:choice>
 		<xs:attribute name="name" type="KeyType"/>
+		<xs:attribute name="default" type="xs:string"/>
 	</xs:complexType>
 
 	<xs:complexType name="SetElement" mixed="true">
