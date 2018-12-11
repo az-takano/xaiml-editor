@@ -1,6 +1,6 @@
 {
   "name": "xaiml-editor",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "AIML language support in Atom.",
   "main": "./lib/main",
   "license": "MIT",
