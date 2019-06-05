@@ -2,7 +2,7 @@
 
 # xaiml-editor 操作マニュアル
 
-*for version 1.0.x*
+*for version 1.1.0*
 
 [Atom]: https://atom.io/
 
@@ -89,9 +89,26 @@
 
 <br>
 
+### スキーマバージョンの切り替え
+
++ 本パッケージの設定画面 `Suggest Options` → `Built-in Dictionary and Schema Version` にて、対応する xAIML のバージョンを切り替えることができます。
++ 上記の設定により、オートコンプリートの候補一覧を選択バージョンに適したものへと切り替えることができます。
+
+  ![SwitchVersion](images/setting-schema-version.png)
+
++ xaiml1.0.0
+
+  ![autocomplete-100](images/auto-complete-100.png)
+
++ xaiml1.0.1
+
+  ![autocomplete-101](images/auto-complete-101.png)
+
+<br>
+
 ### キーバインド変更
 
-候補の選択、決定等に使用するキーの変更は、コアパッケージ [autocomplete-plus] の設定で行います。
++ 候補の選択、決定等に使用するキーの変更は、コアパッケージ [autocomplete-plus] の設定で行います。
 変更方法は [autocomplete-plus] の [Usage] や [Remapping Movement Commands] を参照してください。
 
 [autocomplete-plus]: https://atom.io/packages/autocomplete-plus
@@ -110,8 +127,6 @@
 ### 制限事項
 
 + ファイルサイズが2MB以上の場合、本機能は無効となります。
-
-
 
 <br>
 
@@ -254,7 +269,7 @@ xAIMLの構文チェックを行い、問題点を警告する機能です。
 
 AIMLファイル(\*.aiml)を開くと自動的に有効になります。
 
-#### 制限事項
+### 制限事項
 
 + ファイルサイズが2MB以上の場合、本機能は無効となります。
 
@@ -271,12 +286,12 @@ AIMLファイル(\*.aiml)を開くと自動的に有効になります。
 コミュニティーパッケージ [highlight-selected] を日本語選択時も動作するよう拡張する機能です。
 関連パッケージがインストールされている環境で有効となります。
 
-#### 関連パッケージ
+### 関連パッケージ
 
 + [highlight-selected]
 <!-- + [minimap-highlight-selected] -->
 
-#### 制限事項
+### 制限事項
 
 + 本機能は関連パッケージの将来的なバージョンアップにより正常に動作しなくなる可能性があります。
 
@@ -308,7 +323,7 @@ Atomで発生する問題について（Atom 1.19.7 現在)
   ※安定した状態で使用するために、Atomではなるべく1MB以上のファイルを開かないことをおすすめします。 -->
 
 
-#### 参考情報
+### 参考情報
 [Atom Issues](https://github.com/atom/atom/issues)
 + Syntax highlighting conditionally works on super-long HTML file [\#11232]
 

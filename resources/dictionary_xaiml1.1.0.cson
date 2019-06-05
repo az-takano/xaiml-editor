@@ -1,0 +1,626 @@
+### 入力候補辞書定義ファイル ###
+# バージョン
+version: "xaiml1.1.0"
+
+# スニペット候補設定
+snippets:
+  xml:
+    name: "<?xml ..."
+    parents: [ "_ROOT_" ]
+    snippet: '<?xml version="1.0" encoding="UTF-8"?>'
+    description: "XML Processing Instruction"
+    rowonly: 1
+    rowlater: null
+
+# 重複要素設定
+dedup:
+  category:
+    category_aiml:
+      parents: [ "aiml", "topic" ]
+    category_learn:
+      parents: [ "learn", "learnf" ]
+  pattern:
+    pattern_category:
+      parents: [ "category_aiml" ]
+    pattern_learn_category:
+      parents: [ "category_learn" ]
+  that:
+    that_category:
+      parents: [ "category_aiml" ]
+    that_learn_category:
+      parents: [ "category_learn" ]
+    that_template:
+      parents: [ "#TemplateCommand" ]
+  template:
+    template_category:
+      parents: [ "category_aiml" ]
+    template_learn_category:
+      parents: [ "category_learn" ]
+  li:
+    li_random:
+      parents: [ "random" ]
+    li_condition:
+      parents: [ "condition", "conditional_random" ]
+  map:
+    map_pattern:
+      parents: [ "pattern_category", "pattern_learn_category", "that_category", "that_learn_category" ]
+    map_template:
+      parents: [ "template_category", "template_learn_category","li_random","li_condition","set_template" ]
+  set:
+    set_pattern:
+      parents: [ "pattern_category", "pattern_learn_category", "that_category", "that_learn_category" ]
+    set_template:
+      parents: [ "#TemplateCommand" ]
+  get:
+    get_pattern:
+      parents: [ "pattern_category", "pattern_learn_category", "that_category", "that_learn_category" ]
+    get_template:
+      parents: [ "#TemplateCommand", "predstore", "ut", "ub" ]
+  name:
+    name_pattern:
+      parents: [ "get_pattern" ]
+    name_template:
+      parents: [ "get_template", "condition", "conditional_random", "li_condition", "set_template" ]
+    name_map:
+      parents: [ "map_template" ]
+
+
+# 要素、属性、属性値候補設定
+elements:
+  _ROOT_:
+    children: [ "aiml" ]
+  aiml:
+    attributes:
+      version: { values: [ "xaiml1.1.0" ] }
+      xmlns: { values: [ "http://www.nttdocomo.com/aiml/schema" ] }
+      xmlns_html: { name: "xmlns:html", values: [ "http://www.w3.org/1999/xhtml" ] }
+      xmlns_xsi: { name: "xmlns:xsi", values: [ "http://www.w3.org/2001/XMLSchema-instance" ] }
+      xsi_schemaLocation: { name: "xsi:schemaLocation", values: [ "http://www.nttdocomo.com/aiml/schema/AIML.xsd" ] }
+    children: [ "topic", "category_aiml", ]
+    snippet: '''
+      <aiml version="xaiml1.1.0" xmlns="http://www.nttdocomo.com/aiml/schema" \
+      xmlns:html="http://www.w3.org/1999/xhtml" \
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \
+      xsi:schemaLocation="http://www.nttdocomo.com/aiml/schema/AIML.xsd">
+        $0
+      </aiml>
+    '''
+    description: "AIML Document Root Node"
+  topic:
+    attributes:
+      name: null
+    children: [ "category_aiml" ]
+    snippet: '''
+      <topic name="$1">$2
+      </topic>
+      '''
+    description: ""
+  category_aiml:
+    name: "category"
+    attributes:
+      recursion: { values: [ "#Boolean"] }
+    children: [ "pattern_category", "that_category", "template_category" ]
+    snippet: '''
+      <category>$1
+      </category>
+      '''
+    description: ""
+  category_learn:
+    name: "category"
+    attributes:
+      recursion: { values: [ "#Boolean"] }
+    children: [ "pattern_learn_category", "that_learn_category", "template_learn_category" ]
+    snippet: '''
+      <category>$1
+      </category>
+      '''
+    description: ""
+  pattern_category:
+    name: "pattern"
+    attributes:
+      partial: { values: [ "#Boolean" ] }
+      level: { values: [ "exact", "surface", "normalization", "synonym", "hypernym", "regex" ] }
+      label: { values: [ "#CommandId"]}
+      surface: { values: [ "#Boolean" ] }
+    children: [ "bot", "get_pattern", "wildcard", "set_pattern", "map_pattern" ]
+    snippet: '<pattern$1>$2</pattern>$3'
+    description: ""
+  pattern_learn_category:
+    name: "pattern"
+    attributes:
+      partial: { values: [ "#Boolean" ] }
+      surface: { values: [ "#Boolean" ] }
+      level: { values: [ "exact", "surface", "normalization", "synonym", "hypernym", "regex" ] }
+      label: { values: [ "#CommandId"]}
+    children: [ "bot", "get_pattern", "wildcard", "set_pattern", "map_pattern", "eval" ]
+    snippet: '<pattern$1>$2</pattern>$3'
+    description: ""
+  that_category:
+    name: "that"
+    attributes:
+      partial: { values: [ "#Boolean" ] }
+      id: null
+      emotion: { values: [ "#Emotion" ] }
+    children: [ "bot", "get_pattern", "wildcard", "set_pattern", "map_pattern" ]
+    snippet: '<that$1>$2</that>$3'
+    description: ""
+  that_learn_category:
+    name: "that"
+    attributes:
+      partial: { values: [ "#Boolean" ] }
+      id: null
+      emotion: { values: [ "#Emotion" ] }
+    children: [ "bot", "get_pattern", "wildcard", "set_pattern", "map_pattern", "eval" ]
+    snippet: '<that$1>$2</that>$3'
+    description: ""
+  template_category:
+    name: "template"
+    attributes:
+      Template: { name: "#TemplateAttr" }
+    children: [ "#TemplateChildren" ]
+    snippet: '''
+      <template>$1
+      </template>
+      '''
+    description: ""
+  template_learn_category:
+    name: "template"
+    attributes:
+      Template: { name: "#TemplateAttr" }
+    children: [ "#TemplateChildren", "eval" ]
+    snippet: '''
+      <template>$1
+      </template>
+      '''
+    description: ""
+  bot:
+    attributes:
+      name: { values: [ "#BotName" ] }
+    children: null
+    snippet: '<bot name="$1"/>$2'
+    description: ""
+    interlock: true
+  log:
+    name:"log"
+    attributes:
+      key:null
+      log_level: { values: [ "#LogLevel" ] }
+    children: [ "#RetrieveChildren" ]
+    snippet: '<log>$0</log>'
+    description: ""
+  get_pattern:
+    name: "get"
+    attributes:
+      name: { values: [ "#PredicateName" ] }
+    children: [ "name_pattern" ]
+    displayText: "get"
+    snippet: '<get name="$1"/>$2'
+    description: ""
+    interlock: true
+  get_template:
+    name: "get"
+    attributes:
+      name: { values: [ "#PredicateName" ] }
+      default: null
+    children: [ "name_template" ]
+    displayText: "get"
+    snippet: '<get name="$1"/>$2'
+    description: ""
+    interlock: true
+  wildcard:
+    attributes:
+      type: { values: [ "#wildcardTag" ] }
+    children: null
+    displayText: "wildcard"
+    snippet: '<wildcard$1/>$2'
+    description: ""
+  random:
+    attributes: null
+    children: [ "li_random" ]
+    snippet: '''
+      <random>$1
+      </random>
+      '''
+    description: ""
+  condition:
+    attributes:
+      name: { values: [ "#PredicateName" ] }
+    children: [ "name_template", "li_condition" ]
+    snippet: '''
+      <condition>$1
+      </condition>
+      '''
+    description: ""
+  conditional_random:
+    attributes:
+      name: { values: [ "#PredicateName" ] }
+    children: [ "name_template", "li_condition" ]
+    snippet: '''
+      <conditional_random>$1
+      </conditional_random>
+      '''
+    description: ""
+  li_random:
+    name: "li"
+    attributes:
+      Template: { name: "#TemplateAttr" }
+    children: [ "#TemplateChildren" ]
+    snippet: '<li>$1</li>$2'
+    description: ""
+  li_condition:
+    name: "li"
+    attributes:
+      name: { values: [ "#PredicateName" ] }
+      value: { values: [ "#ComparisonOperator", "#PredicateValue" ] }
+      predicate: { values: [ "#ComparisonOperator", "#PredicateName" ] }
+      regex: null
+      Template: { name: "#TemplateAttr" }
+    children: [ "name_template", "value", "#TemplateChildren", "loop" ]
+    snippet: '<li$1>$2</li>$3'
+    description: ""
+  loop:
+    attributes: null
+    children: null
+    snippet: "<loop/>"
+    description: ""
+  date:
+    attributes:
+      format: null
+      parse_format: null
+    children: [ "#TemplateChildren" ]
+    snippet: '<date$1>$2</date>$3'
+    description: ""
+  date_add:
+    attributes:
+      field: { values: [ "year", "month", "date", "hour", "minute", "second" ] }
+      value: null
+      predicate: { values: [ "#PredicateName" ] }
+      format: null
+    children: [ "#TemplateChildren" ]
+    snippet: '<date_add field="$1">$2</date_add>$3'
+    description: ""
+    interlock: true
+  date_span:
+    attributes:
+      field: { values: [ "year", "month", "date", "hour", "minute", "second" ] }
+      value: null
+      predicate: { values: [ "#PredicateName" ] }
+      value_format: null
+    children: [ "#TemplateChildren" ]
+    snippet: '<date_span field="$1">$2</date_span>$3'
+    description: ""
+    interlock: true
+  think:
+    attributes: null
+    children: [ "#TemplateChildren" ]
+    snippet: '<think>$1</think>$2'
+    description: ""
+  set_pattern:
+    name: "set"
+    attributes: null
+    children: null
+    snippet: '<set>$1</set>$2'
+    description: ""
+    interlock: false
+  set_template:
+    name: "set"
+    attributes:
+      name: { values: [ "#PredicateName" ] }
+    children: [ "name_template", "#TemplateChildren" ]
+    snippet: '<set$1>$2</set>$3'
+    description: ""
+    interlock: false
+  that_template:
+    name: "that"
+    attributes: null
+    children: null
+    snippet: '<that/>'
+    description: ""
+  srai:
+    attributes: null
+    children: [ "#TemplateChildren" ]
+    snippet: '<srai>$1</srai>$2'
+    description: ""
+  sraix:
+    attributes:
+      botid: null
+      appid: null
+      lang: null
+      host: null
+      clientdata: { values: [ "#Boolean"] }
+      default: null
+      referrer: { values: [ "#Boolean"] }
+    children: [ "botid", "sraixtopic", "#TemplateChildren" ]
+    snippet: '<sraix$1>$2</sraix>$3'
+    description: ""
+  star:
+    attributes:
+      Star: { name: "#StarAttr"}
+    children: null
+    snippet: '<star$1/>$0'
+    description: ""
+  thatstar:
+    attributes:
+      Star: { name: "#StarAttr"}
+    children: null
+    snippet: '<thatstar$1/>$0'
+    description: ""
+  emotionstar:
+    attributes:
+      Star: { name: "#StarAttr"}
+    children: null
+    snippet: '<emotionstar$1/>$0'
+    description: ""
+  topicstar:
+    attributes:
+      Star: { name: "#StarAttr"}
+    children: null
+    snippet: '<topicstar$1/>$0'
+    description: ""
+  lowercase:
+    attributes: null
+    children: [ "#TemplateChildren" ]
+    snippet: '<lowercase>$1</lowercase>$2'
+    description: ""
+  uppercase:
+    attributes: null
+    children: [ "#TemplateChildren" ]
+    snippet: '<uppercase>$1</uppercase>$2'
+    description: ""
+  formal:
+    attributes: null
+    children: [ "#TemplateChildren" ]
+    snippet: '<formal>$1</formal>$2'
+    description: ""
+  sentence:
+    attributes: null
+    children: [ "#TemplateChildren" ]
+    snippet: '<sentence>$1</sentence>$2'
+    description: ""
+  map_pattern:
+    name: "map"
+    attributes: null
+    children: null
+    snippet: '<map>$1</map>$2'
+    description: ""
+  map_template:
+    name: "map"
+    attributes:
+      name: { values: [ "#Category" ] }
+    children: [ "name_map", "#TemplateChildren" ]
+    snippet: '<map>$1</map>$2'
+    description: ""
+  calc:
+    attributes:
+      operator: { values: [ "+", "-", "*", "/", "%" ] }
+      name: { values: [ "#PredicateName" ] }
+    # children: [ "get_template" ]
+    children: [ "#TemplateChildren" ]
+    snippet: '<calc operator="$1" name="$2">$3</calc>$4'
+    description: ""
+    interlock: true
+  ext:
+    attributes:
+      name: null
+      anonymous: { values: [ "#Boolean"] }
+    children: [ "arg" ]
+    snippet: '<ext name="$1">$2</ext>$3'
+    description: ""
+  arg:
+    attributes:
+      name: null
+    children: [ "#TemplateChildren" ]
+    snippet: '<arg name="$1">$2</arg>$3'
+    description: ""
+  utterance:
+    attributes: null
+    children: [ "ub", "ut" ]
+    snippet: '''
+      <utterance>
+        <ub>$1</ub>
+        <ut>$2</ut>
+      </utterance>$3
+      '''
+    description: ""
+  ub:
+    attributes: null
+    children: [ "get_template" ]
+    snippet: "<ub>$1</ub>$2"
+    description: ""
+  ut:
+    attributes: null
+    children: [ "get_template" ]
+    snippet: "<ut>$1</ut>$2"
+    description: ""
+  command:
+    attributes: null
+    children: [ "#TemplateChildren" ]
+    snippet: '<command>$1</command>$2'
+    description: ""
+  br:
+    attribuetes: null
+    children: null
+    snippet: "<br/>"
+    description: ""
+  name_pattern:
+    name: "name"
+    attributes: null
+    children: null
+    snippet: "<name>$1</name>$2"
+    contents: [ "#PredicateName" ]
+    description: ""
+    interlock: false
+  name_template:
+    name: "name"
+    attributes: null
+    children: [ "#TemplateChildren" ]
+    snippet: "<name>$1</name>$2"
+    contents: [ "#PredicateName" ]
+    description: ""
+    interlock: false
+  name_map:
+    name: "name"
+    attributes: null
+    children: [ "#TemplateChildren" ]
+    snippet: "<name>$1</name>$2"
+    contents: [ "#Category" ]
+    description: ""
+    interlock: false
+  value:
+    attributes: null
+    children: [ "#TemplateChildren" ]
+    snippet: "<value>$1</value>$2"
+    contents: [ "#ComparisonOperator", "#PredicateValue"]
+    description: ""
+  matcher:
+    attributes:
+      group: null
+      find: null
+    children: null
+    snippet: '<matcher group="$1"/>$2'
+    description: ""
+  learn:
+    attributes: null
+    children: [ "category_learn" ]
+    snippet: '''
+      <learn>$1
+      </learn>
+      '''
+    description: ""
+  learnf:
+    attributes:
+      name: { values: [ "#BotName" ] }
+      scope: { values: [ "project", "public" ] }
+    children: [ "category_learn" ]
+    snippet: '''
+      <learnf name="$1">$2
+      </learnf>
+      '''
+    description: ""
+  predstore:
+    attributes: null
+    children: [ "#RetrieveChildren" ]
+    snippet: '<predstore>$1</predstore>$2'
+    description: ""
+  sr:
+    attributes:
+      index: null
+    children: null
+    snippet: '<sr$1/>$2'
+    description: ""
+  botid:
+    attributes: null
+    children: [ "#TemplateChildren" ]
+    snippet: "<botid>$1</botid>$2"
+    description: ""
+  sraixtopic:
+    attributes: null
+    children: [ "#TemplateChildren" ]
+    snippet: "<sraixtopic>$1</sraixtopic>$2"
+    description: ""
+  eval:
+    attributes: null
+    children: [ "#TemplateChildren" ]
+    snippet: '<eval>$1</eval>$2'
+    description: ""
+
+# 親要素型定義
+parents_groups:
+  TemplateCommand:
+    parents: [
+      "template_category", "template_learn_category"
+      "date", "date_add", "date_span", "calc"
+      "uppercase", "lowercase", "formal", "sentence"
+      "set_template"
+      "srai", "sraix", "botid", "sraixtopic"
+      "map_template"
+      "think"
+      "command"
+      "li_random", "li_condition"
+      "name_template", "name_map", "value", "arg"
+    ]
+
+# 子要素型定義
+children_groups:
+  TemplateChildren:
+    children: [
+      "star", "sr", "get_template", "bot", "matcher",
+      "that_template", "thatstar", "emotionstar", "topicstar", "br",
+      "date", "date_add", "date_span", "calc",
+      "predstore",
+      "uppercase", "lowercase", "formal", "sentence",
+      "condition", "conditional_random", "random",
+      "set_template",
+      "srai", "sraix",
+      "map_template",
+      "think",
+      "command","ext",
+      "utterance",
+      "learn", "learnf",
+      "log"
+    ]
+
+  RetrieveChildren:
+    children: [
+      "star", "sr", "get_template", "bot", "matcher"
+    ]
+
+# 属性型定義
+attributes_types:
+  TemplateAttr:
+    attributes:
+      id: null
+      emotion: { values: [ "#Emotion" ] }
+      sound: null
+      at: { values: [ "start", "middle", "end" ] }
+      timeout: null
+      max_output: null
+      suppression_period: null
+      talkend: { values: [ "#Boolean" ] }
+  StarAttr:
+    attributes:
+      index: null
+      name: null
+
+# 属性値型定義
+values_types:
+  Boolean:
+    values: [ "true", "false" ]
+  Emotion:
+    values: [ "glad", "angry", "sad", "happy" ]
+    delimiter: "|"
+  ComparisonOperator:
+    values: [ "LESS_THAN ${1:x}", "GREATER_THAN ${1:x}", "BETWEEN ${1:x} AND ${2:y}" ]
+  LogLevel:
+    values: [ "FATAL", "ERROR", "WARN", "INFO", "DEBUG"]
+  # システム固定Predicate名
+  SystemPredicate:
+    values: [
+      "topic"
+      "theme"
+      "input"
+      "that"
+      "id"
+      "emotion"
+      "count:${1:x}"
+      "total_access"
+      "days_from_last_access"
+      "days_from_first_access"
+      "intimacy"
+      "season"
+      "time_period"
+      "dialog_status"
+      "srai_count"
+      "appId"
+      "language"
+      "latitude"
+      "longitude"
+      "sendTime"
+      "frontBot"
+      "callerBot"
+      # "contextId"
+      # "focus_${1:N}"
+    ]
+  # コマンドID
+  CommandId:
+    values: []

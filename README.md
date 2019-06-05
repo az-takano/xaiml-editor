@@ -8,7 +8,7 @@ AIML language support in Atom. -->
 
 # xaiml-editor 操作マニュアル
 
-*for version 1.0.x*
+*for version 1.1.0*
 
 [Atom]: https://atom.io/
 
@@ -38,7 +38,7 @@ AIML language support in Atom. -->
 
 ## 動作条件
 
-+ 本パッケージの動作環境は [Atom] 1.13.0 以降が対象となります。（1.19.7 動作確認済）
++ 本パッケージの動作環境は [Atom] 1.13.0 以降が対象となります。（1.28.0 動作確認済）
   ただし、[Atom]の将来的なバージョンアップにより正常に動作しなくなる可能性があります。
 
 + 各機能は、エディタのGrammarがAIMLの場合のみ動作します。
@@ -78,9 +78,14 @@ AIML language support in Atom. -->
   + 属性値クォーテーション内で `<Ctrl-Space>` を入力します。
   + 複数の値が入力可能な箇所で、区切り文字 `|` を入力します。
 
+### スキーマバージョンの切り替え
+
++ 本パッケージの設定画面 `Suggest Options` → `Built-in Dictionary and Schema Version` にて、対応する xAIML のバージョンを切り替えることができます。
++ 上記の設定により、オートコンプリートの候補一覧を選択バージョンに適したものへと切り替えることができます。
+
 ### キーバインド変更
 
-候補の選択、決定等に使用するキーの変更は、コアパッケージ [autocomplete-plus] の設定で行います。
++ 候補の選択、決定等に使用するキーの変更は、コアパッケージ [autocomplete-plus] の設定で行います。
 変更方法は [autocomplete-plus] の [Usage] や [Remapping Movement Commands] を参照してください。
 
 [autocomplete-plus]: https://atom.io/packages/autocomplete-plus
@@ -95,8 +100,6 @@ AIML language support in Atom. -->
 ### 制限事項
 
 + ファイルサイズが2MB以上の場合、本機能は無効となります。
-
-
 
 <br>
 
@@ -190,16 +193,28 @@ xAIMLの構文チェックを行い、問題点を警告する機能です。
 
 ---
 
+## シンタックスハイライト機能
+
+AIMLファイル(\*.aiml)を開くと自動的に有効になります。
+
+### 制限事項
+
++ ファイルサイズが2MB以上の場合、本機能は無効となります。
+
+<br>
+
+---
+
 ## highlight-selected日本語対応機能
 
 コミュニティーパッケージ [highlight-selected] を日本語選択時も動作するよう拡張する機能です。
 関連パッケージがインストールされている環境で有効となります。
 
-#### 関連パッケージ
+### 関連パッケージ
 
 + [highlight-selected]
 
-#### 制限事項
+### 制限事項
 
 + 本機能は関連パッケージの将来的なバージョンアップにより正常に動作しなくなる可能性があります。
 
@@ -219,7 +234,7 @@ Atomで発生する問題について（Atom 1.19.7 現在)
 + ファイルサイズが2MB以上の場合に構文解析が機能せず、シンタックスハイライトが行われない現象が発生します。
 このため本パッケージでは、構文解析が必要な一部機能で2MB以上のファイルに対する動作を制限しています。
 
-#### 参考情報
+### 参考情報
 [Atom Issues](https://github.com/atom/atom/issues)
 + Syntax highlighting conditionally works on super-long HTML file [\#11232]
 

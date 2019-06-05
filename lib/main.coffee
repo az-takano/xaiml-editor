@@ -63,8 +63,8 @@ module.exports =
           title: 'Built-in Dictionary and Schema Version'
           description: '内蔵辞書とスキーマのバージョンを指定します。'
           type: 'string'
-          default: "xaiml1.0.0"
-          enum: ['xaiml1.0.0']
+          default: "xaiml1.1.0"
+          enum: ['xaiml1.1.0','xaiml1.0.0']
         suggestSystemPredicateName:
           order: 2
           title: 'Suggest System PredicateNames'
